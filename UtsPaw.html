@@ -1,0 +1,53 @@
+<!-- 2226240163 Ericjonathan -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulasi Pembayaran THR</title>
+</head>
+<body>
+<h2>Simulasi Pembayaran THR</h2>
+<label for="gajiPokok">Gaji Pokok:</label>
+<input type="number" id="gajiPokok"><br><br>
+<label for="tunjanganTetap">Tunjangan Tetap:</label>
+<input type="number" id="tunjanganTetap"><br><br>
+<label for="masaKerja">Masa Kerja (bulan):</label>
+<input type="number" id="masaKerja"><br><br>
+<button onclick="hitungTHR()">Hitung THR</button><br><br>
+<p id="output"></p>
+
+<script>
+function hitungTHR() {
+    var gajiPokok = parseFloat(document.getElementById("gajiPokok").value);
+    var tunjanganTetap = parseFloat(document.getElementById("tunjanganTetap").value);
+    var masaKerja = parseInt(document.getElementById("masaKerja").value);
+    
+    var totalGaji = gajiPokok + tunjanganTetap;
+    var thr;
+
+    if (masaKerja >= 12) {
+        thr = totalGaji;
+    } else {
+        thr = (masaKerja / 12) * totalGaji;
+    }
+
+    var pph = 0;
+    var ptkp = 4500000;
+
+    if (totalGaji > ptkp) {
+        pph = 0.05 * (totalGaji - ptkp);
+    }
+
+    var totalPembayaran = thr + pph;
+
+    var output = "THR: Rp. " + thr.toFixed(2) + "<br>";
+    output += "PPH: Rp. " + pph.toFixed(2) + "<br>";
+    output += "Total Pembayaran: Rp. " + totalPembayaran.toFixed(2);
+
+    document.getElementById("output").innerHTML = output;
+}
+</script>
+</body>
+</html>
